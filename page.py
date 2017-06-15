@@ -58,3 +58,13 @@ class Element(object):
         context = instance.webdriver
 
         return self.find(context)
+
+    def __set__(self, instance, value):
+        elements = self.__get__(instance, instance.__class__)
+        if not elements:
+            raise ValueError('Cannot set value because no elements could be found')
+
+        if self.multiple:
+            [e.send_keys(value) for e in elements]
+        else:
+            elements.send_keys(value)
