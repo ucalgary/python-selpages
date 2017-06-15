@@ -25,7 +25,7 @@ _LOCATORS = {
 class Element(object):
 
     def __init__(self, id=None, name=None, tag=None, class_name=None, link_text=None, partial_link_text=None,
-                 css=None, xpath=None):
+                 css=None, xpath=None, multiple=False):
         args = locals()
         self._locators = [(_LOCATORS[arg], args[arg]) for arg, by in _LOCATORS.items() if args.get(arg)]
         self._multiple = multiple
@@ -33,3 +33,7 @@ class Element(object):
     @property
     def locators(self):
         return self._locators
+
+    @property
+    def multiple(self):
+        return self._multiple
