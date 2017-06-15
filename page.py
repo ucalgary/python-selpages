@@ -1,3 +1,7 @@
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+
+
 class Page(object):
 
     def __init__(self, webdriver):
@@ -37,3 +41,12 @@ class Element(object):
     @property
     def multiple(self):
         return self._multiple
+
+    def find(self, context):
+        f = context.find_elements if self.multiple else context.find_element
+        for locator in self.locators:
+            try:
+                return f(*locator)
+            except NoSuchElementException:
+                pass
+        return None
