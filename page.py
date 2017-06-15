@@ -50,3 +50,11 @@ class Element(object):
             except NoSuchElementException:
                 pass
         return None
+
+    def __get__(self, instance, owner):
+        if not instance:
+            return None
+
+        context = instance.webdriver
+
+        return self.find(context)
