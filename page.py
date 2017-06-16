@@ -1,5 +1,10 @@
+import logging
+
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+
+
+log = logging.getLogger(__name__)
 
 
 class Page(object):
@@ -33,6 +38,7 @@ class Element(object):
         args = locals()
         self._locators = [(_LOCATORS[arg], args[arg]) for arg, by in _LOCATORS.items() if args.get(arg)]
         self._multiple = multiple
+        log.debug(f'Initialized {self.__class__.__name__} with locators: {self.locators}')
 
     @property
     def locators(self):
@@ -49,6 +55,7 @@ class Element(object):
                 return f(*locator)
             except NoSuchElementException:
                 pass
+        log.debug(f'No elements found for locators: {self.locators}')
         return None
 
     def __get__(self, instance, owner):
