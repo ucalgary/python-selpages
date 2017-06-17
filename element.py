@@ -53,7 +53,10 @@ class Element(object):
         f = context.find_elements if self.multiple else context.find_element
         for locator in self.locators:
             try:
-                return f(*locator)
+                e = f(*locator)
+                if self._wrapper:
+                    e = self._wrapper(e)
+                return e
             except NoSuchElementException:
                 pass
         log.debug(f'No elements found for locators: {self.locators}')
