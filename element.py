@@ -34,10 +34,11 @@ class Element(object):
     methods are implemented to get Selenium elements and set values on those elements.
     """
     def __init__(self, id=None, name=None, tag=None, class_name=None, link_text=None, partial_link_text=None,
-                 css=None, xpath=None, multiple=False):
+                 css=None, xpath=None, multiple=False, wrapper=None):
         args = locals()
         self._locators = [(_LOCATORS[arg], args[arg]) for arg, by in _LOCATORS.items() if args.get(arg)]
         self._multiple = multiple
+        self._wrapper = wrapper
         log.debug(f'Initialized {self.__class__.__name__} with locators: {self.locators}')
 
     @property
