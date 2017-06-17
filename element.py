@@ -76,3 +76,18 @@ class Element(object):
             [e.send_keys(value) for e in elements]
         else:
             elements.send_keys(value)
+
+
+class Wrapper(object):
+
+    def __init__(self, element):
+        if element is None:
+            raise ValueError('The element to wrap cannot be None.')
+        self._element = element
+
+    @property
+    def element(self):
+        return self._element
+
+    def __getattr__(self, name):
+        return getattr(self.element, name)
