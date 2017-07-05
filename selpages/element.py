@@ -55,7 +55,7 @@ class Element(object):
             try:
                 result = f(*locator)
                 if self._wrapper:
-                    result = [self._wrapper(e) for e in result] if self.multiple else self._wrapper(e)
+                    result = [self._wrapper(e) for e in result] if self.multiple else self._wrapper(result)
                 return result
             except NoSuchElementException:
                 pass
